@@ -14,7 +14,8 @@ MEALS = [
     {"name": "Meal 3", "calories": 1000},
     {"name": "Meal 4", "calories": 1200},
     {"name": "Meal 5", "calories": 1500},
-    {"name": "Meal 6", "calories": 2000}
+    {"name": "Meal 6", "calories": 2000},
+    {"name": "Meal 6", "calories": 2200}
 ]
 
 class RestaurantMenu(BoxLayout):
