@@ -68,7 +68,6 @@ class RestaurantMenu(BoxLayout):
             self.meals_label.text = "No matching meals found"
 
 class RestaurantMenuApp(App):
-
     def build(self):
         return RestaurantMenu()
 
