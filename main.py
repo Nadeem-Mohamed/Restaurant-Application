@@ -1,5 +1,5 @@
 import kivy
-kivy.require('1.11.1')
+
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -31,14 +31,14 @@ class RestaurantMenu(BoxLayout):
         self.add_widget(welcome_label)
 
         # Create a text input for the user to enter their desired calorie count
-        self.calories_input = TextInput(hint_text="Enter desired calorie count",
-                                        size_hint=(0.8, 0.2))
+        self.calories_input = TextInput(hint_text="Enter the calorie count you wish to achieve",
+                                        size_hint=(1, 0.2))
         self.add_widget(self.calories_input)
 
         # Create a button to trigger the search for meals
         search_button = Button(text="Search", 
                                size_hint=(0.2, 0.2))
-        search_button.bind(on_press=self.search_meals)
+        search_button.bind(on_press=self.find_meals)
         self.add_widget(search_button)
 
         # Create a label to display the list of meals
@@ -46,21 +46,21 @@ class RestaurantMenu(BoxLayout):
                                  size_hint=(1, 0.6))
         self.add_widget(self.meals_label)
 
-    def search_meals(self, instance):
+    def find_meals(self, instance):
         # Get the desired calorie count entered by the user
         desired_calories = int(self.calories_input.text)
 
         # Find all possible combinations of meals that add up to the desired calorie count
         matching_meals = []
         for i in range(1, len(MEALS) + 1):
-            for combo in itertools.combinations(MEALS, i):
-                total_calories = sum([meal["calories"] for meal in combo])
+            for j in itertools.combinations(MEALS, i):
+                total_calories = sum([meal["calories"] for meal in j])
                 if total_calories == desired_calories:
-                    matching_meals.append(list(combo))
+                    matching_meals.append(list(j))
 
         # Display the list of matching meals
         if matching_meals:
-            meals_text = "Matching meals:\n\n"
+            meals_text = "Possible meals:\n"
             for meals in matching_meals:
                 meals_text += ", ".join([meal["name"] for meal in meals]) + f" ({sum([meal['calories'] for meal in meals])} calories)\n"
             self.meals_label.text = meals_text
@@ -68,6 +68,7 @@ class RestaurantMenu(BoxLayout):
             self.meals_label.text = "No matching meals found"
 
 class RestaurantMenuApp(App):
+    
     def build(self):
         return RestaurantMenu()
 
