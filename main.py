@@ -50,17 +50,19 @@ class RestaurantMenu(BoxLayout):
         # Get the desired calorie count entered by the user
         desired_calories = int(self.calories_input.text)
 
-        # Find the meals that match the desired calorie count
+        # Find all possible combinations of meals that add up to the desired calorie count
         matching_meals = []
-        for meal in MEALS:
-            if meal["calories"] == desired_calories:
-                matching_meals.append(meal)
+        for i in range(1, len(MEALS) + 1):
+            for combo in itertools.combinations(MEALS, i):
+                total_calories = sum([meal["calories"] for meal in combo])
+                if total_calories == desired_calories:
+                    matching_meals.append(list(combo))
 
         # Display the list of matching meals
         if matching_meals:
             meals_text = "Matching meals:\n\n"
-            for meal in matching_meals:
-                meals_text += f"{meal['name']} ({meal['calories']} calories)\n"
+            for meals in matching_meals:
+                meals_text += ", ".join([meal["name"] for meal in meals]) + f" ({sum([meal['calories'] for meal in meals])} calories)\n"
             self.meals_label.text = meals_text
         else:
             self.meals_label.text = "No matching meals found"
@@ -71,4 +73,5 @@ class RestaurantMenuApp(App):
         return RestaurantMenu()
 
 if __name__ == '__main__':
+    import itertools
     RestaurantMenuApp().run()
