@@ -6,6 +6,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.uix.widget import Widget
+from kivy.graphics import Color,Rectangle
 
 # Define the list of possible meals with their corresponding calorie counts
 MEALS = [
@@ -20,14 +22,26 @@ MEALS = [
     {"name": "Meal 9", "calories": 2200}
 ]
 
-class RestaurantMenu(BoxLayout):
 
+class RestaurantMenu(BoxLayout):
     def __init__(self, **kwargs):
         super(RestaurantMenu, self).__init__(**kwargs)
 
+        # Set the background color for the header
+        with self.canvas.before:
+            Color(1, 0, 0, 1)
+            self.header_rect = Rectangle(pos=self.pos, size=self.size)
+        self.bind(pos=self.update_header_rect, size=self.update_header_rect)
+
+        # Set the background color for the rest of the screen
+        with self.canvas.before:
+            Color(255, 255, 0, 1)
+            self.body_rect = Rectangle(pos=self.pos, size=self.size)
+        self.bind(pos=self.update_body_rect, size=self.update_body_rect)
+
         # Create a label to welcome the user to the app
         welcome_label = Label(text="Welcome to the Restaurant Menu App", 
-                              size_hint=(1, 0.2))
+                              size_hint=(1, 0.2), pos_hint={'top':0.550, 'y':0.5})
         self.add_widget(welcome_label)
 
         # Create a text input for the user to enter their desired calorie count
@@ -45,6 +59,14 @@ class RestaurantMenu(BoxLayout):
         self.meals_label = Label(text="", 
                                  size_hint=(1, 0.6))
         self.add_widget(self.meals_label)
+
+    def update_header_rect(self, instance, value):
+        self.header_rect.pos = instance.pos
+        self.header_rect.size = instance.size
+
+    def update_body_rect(self, instance, value):
+        self.body_rect.pos = instance.pos
+        self.body_rect.size = instance.size
 
     def search_meals(self, instance):
         # Get the desired calorie count entered by the user
@@ -67,10 +89,11 @@ class RestaurantMenu(BoxLayout):
         else:
             self.meals_label.text = "No matching meals found"
 
+
 class RestaurantMenuApp(App):
-    
     def build(self):
         return RestaurantMenu()
+
 
 if __name__ == '__main__':
     import itertools
