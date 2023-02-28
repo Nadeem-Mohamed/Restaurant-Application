@@ -35,7 +35,7 @@ class RestaurantMenu(BoxLayout):
 
         # Set the background color for the rest of the screen
         with self.canvas.before:
-            Color(255, 255, 0, 1)
+            Color(0, 0, 0, 1)
             self.body_rect = Rectangle(pos=self.pos, size=self.size)
         self.bind(pos=self.update_body_rect, size=self.update_body_rect)
 
@@ -46,12 +46,13 @@ class RestaurantMenu(BoxLayout):
 
         # Create a text input for the user to enter their desired calorie count
         self.calories_input = TextInput(hint_text="Enter desired calorie count",
-                                        size_hint=(0.8, 0.2))
+                size_hint=(0.8, 0.05), multiline=False)
+        self.calories_input.bind(on_text_validate=self.search_meals)
         self.add_widget(self.calories_input)
 
         # Create a button to trigger the search for meals
         search_button = Button(text="Search", 
-                               size_hint=(0.2, 0.2))
+                               size_hint=(0.2, 0.05))
         search_button.bind(on_press=self.search_meals)
         self.add_widget(search_button)
 
@@ -70,7 +71,10 @@ class RestaurantMenu(BoxLayout):
 
     def search_meals(self, instance):
         # Get the desired calorie count entered by the user
-        desired_calories = int(self.calories_input.text)
+        try:
+            desired_calories = int(self.calories_input.text)
+        except:
+            desired_calories = -1
 
         # Find all possible combinations of meals that add up to the desired calorie count
         matching_meals = []
@@ -80,7 +84,7 @@ class RestaurantMenu(BoxLayout):
                 if total_calories == desired_calories:
                     matching_meals.append(list(combo))
 
-        # Display the list of matching meals
+        # Display the list of matching mea05s
         if matching_meals:
             meals_text = "Matching meals:\n\n"
             for meals in matching_meals:
