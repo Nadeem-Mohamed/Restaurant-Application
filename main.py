@@ -8,6 +8,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.graphics import Color,Rectangle
+import itertools
 
 # Define the list of possible meals with their corresponding calorie counts
 MEALS = [
@@ -29,7 +30,7 @@ class RestaurantMenu(BoxLayout):
 
         # Set the background color for the header
         with self.canvas.before:
-            Color(1, 0, 0, 1)
+            Color(255, 0, 0, 1)
             self.header_rect = Rectangle(pos=self.pos, size=self.size)
         self.bind(pos=self.update_header_rect, size=self.update_header_rect)
 
@@ -100,7 +101,7 @@ class RestaurantMenuApp(App):
 
 
 if __name__ == '__main__':
-    import itertools
+
     RestaurantMenuApp().run()
     
     
