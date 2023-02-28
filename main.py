@@ -12,11 +12,11 @@ import itertools
 
 # Define the list of possible meals with their corresponding calorie counts
 MEALS = [
-    {"name": "Meal 1", "calories": 500},
-    {"name": "Meal 2", "calories": 800},
-    {"name": "Meal 3", "calories": 1000},
-    {"name": "Meal 4", "calories": 1200},
-    {"name": "Meal 5", "calories": 1500},
+    {"name": "Cheese Pizza", "calories": 170},
+    {"name": "Granola Bar", "calories": 100},
+    {"name": "Waffles", "calories": 130},
+    {"name": "Bag of Chips", "calories": 1200},
+    {"name": "Steak", "calories": 300},
     {"name": "Meal 6", "calories": 1750},
     {"name": "Meal 7", "calories": 2000},
     {"name": "Meal 8", "calories": 2150},
@@ -85,7 +85,7 @@ class RestaurantMenu(BoxLayout):
                 if total_calories == desired_calories:
                     matching_meals.append(list(combo))
 
-        # Display the list of matching mea05s
+        # Display the list of matching meals
         if matching_meals:
             meals_text = "Matching meals:\n\n"
             for meals in matching_meals:
