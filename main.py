@@ -17,10 +17,10 @@ MEALS = [
     {"name": "Waffles", "calories": 130},
     {"name": "Bag of Chips", "calories": 1200},
     {"name": "Steak", "calories": 300},
-    {"name": "Meal 6", "calories": 1750},
-    {"name": "Meal 7", "calories": 2000},
-    {"name": "Meal 8", "calories": 2150},
-    {"name": "Meal 9", "calories": 2200}
+    {"name": "Cheeseburger", "calories": 300},
+   {"name": "Chocolate bar", "calories": 600},
+    {"name": "Poutine", "calories": 500},
+    {"name": "Butter Chicken", "calories": 200}
 ]
 
 
